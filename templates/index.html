@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YOLO Object Detection</title>
+    <style>
+        #video, #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>YOLO Object Detection with Webcam</h1>
+    <video id="video" playsinline autoplay></video>
+    <canvas id="canvas"></canvas> <!-- 캔버스 추가 -->
+    <p id="status"></p>
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const status = document.getElementById('status');
+        const ws = new WebSocket('ws://localhost:8000/ws');
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    streamVideoToServer();
+                })
+                .catch(function(error) {
+                    console.log("웹캠 접근에 실패했습니다:", error);
+                });
+        }
+
+        function streamVideoToServer() {
+            video.addEventListener('play', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+    
+                setInterval(() => {
+                    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const imageData = canvas.toDataURL('image/jpeg');
+                        if (imageData.length > 23) {
+                            ws.send(imageData);
+                        } else {
+                            console.log('데이터가 비어 있습니다.');
+                        }
+                    }
+                }, 300);
+            });
+        }
+    
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            if (Array.isArray(data)) {  // 좌표 데이터가 배열 형태로 제공된 경우
+                drawBoxes(data);
+            } else {
+                status.textContent = data; // 상태 메시지 업데이트
+            }
+        };
+
+        function drawBoxes(boxes) {
+            context.clearRect(0, 0, canvas.width, canvas.height);  // 이전 프레임의 그림 삭제
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);  // 현재 비디오 프레임 그리기
+            boxes.forEach(box => {
+                context.beginPath();
+                context.rect(box.coordinates[0], box.coordinates[1], box.coordinates[2] - box.coordinates[0], box.coordinates[3] - box.coordinates[1]);
+                context.strokeStyle = 'red';
+                context.lineWidth = 2;
+                context.stroke();
+            });
+        }
+    </script>
+</body>
+</html>
