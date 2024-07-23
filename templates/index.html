@@ -53,11 +53,25 @@
         }
     
         ws.onmessage = function(event) {
-            const data = JSON.parse(event.data);
+            let data;
+            try {
+                data = JSON.parse(event.data);
+                console.log("Received data:", data);  // 수신된 데이터 출력
+            } catch (e) {
+                console.error("Received non-JSON message:", event.data);
+                status.textContent = "Error: Received non-JSON message.";
+                return;
+            }
+
+            if (data.error) {
+                status.textContent = data.error;
+                return;
+            }
+
             if (Array.isArray(data)) {  // 좌표 데이터가 배열 형태로 제공된 경우
                 drawBoxes(data);
             } else {
-                status.textContent = data; // 상태 메시지 업데이트
+                status.textContent = "Unexpected message format";
             }
         };
 
@@ -65,6 +79,7 @@
             context.clearRect(0, 0, canvas.width, canvas.height);  // 이전 프레임의 그림 삭제
             context.drawImage(video, 0, 0, canvas.width, canvas.height);  // 현재 비디오 프레임 그리기
             boxes.forEach(box => {
+                console.log("Drawing box:", box);  // 그릴 박스 정보 출력
                 context.beginPath();
                 context.rect(box.coordinates[0], box.coordinates[1], box.coordinates[2] - box.coordinates[0], box.coordinates[3] - box.coordinates[1]);
                 context.strokeStyle = 'red';
