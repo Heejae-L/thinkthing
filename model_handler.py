@@ -6,8 +6,8 @@ from ultralytics import YOLO
 
 class ModelHandler:
     def __init__(self):
-        self.model = YOLO("/Users/LeeHeejae/projects/thinkthing/yolov10n.pt")  # 모델 경로를 변경
-        self.model.conf = 0.7  # Confidence threshold 설정
+        self.model = YOLO("/Users/LeeHeejae/projects/thinkthing/best.pt")  # 모델 경로를 변경
+        self.model.conf = 0.8  # Confidence threshold 설정
 
     def process_image(self, encoded_data):
         encoded_data = encoded_data.split(',')[1] if ',' in encoded_data else encoded_data
