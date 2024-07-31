@@ -2,12 +2,14 @@ import cv2
 import base64
 import numpy as np
 import json
+from collections import defaultdict
 from ultralytics import YOLO
 
 class ModelHandler:
     def __init__(self):
         self.model = YOLO("/Users/LeeHeejae/projects/thinkthing/best.pt")  # 모델 경로를 변경
         self.model.conf = 0.8  # Confidence threshold 설정
+        self.track_history = defaultdict(lambda: [])
 
     def process_image(self, encoded_data):
         encoded_data = encoded_data.split(',')[1] if ',' in encoded_data else encoded_data
@@ -22,25 +24,29 @@ class ModelHandler:
             return json.dumps({"error": "Failed to decode the image"}), "Failed to decode the image"
 
         try:
-            results = self.model(img)
+            results = self.model.track(img, persist=True)
         except Exception as e:
             return json.dumps({"error": str(e)}), str(e)
 
-        if not results or len(results) == 0:
+        if not results or len(results) == 0 or not results[0].boxes:
             return json.dumps({"error": "No detections"}), "No detections"
 
-        # 결과에서 바운딩 박스 좌표 추출
         boxes = []
         try:
             for result in results:
-                for box in result.boxes:
-                    xyxy = box.xyxy[0].tolist()  # xyxy 리스트의 첫 번째 요소를 변환
-                    conf = box.conf
-                    cls = box.cls
+                for box, track_id in zip(result.boxes.xywh.cpu(), result.boxes.id.int().cpu().tolist()):
+                    x, y, w, h = box
+                    track = self.track_history[track_id]
+                    track.append((float(x), float(y)))  # x, y center point
+                    if len(track) > 30:  # retain 30 tracks for 30 frames
+                        track.pop(0)
+
                     box_dict = {
-                        "coordinates": [int(xyxy[0]), int(xyxy[1]), int(xyxy[2]), int(xyxy[3])],
-                        "confidence": float(conf),
-                        "class": int(cls)
+                        "coordinates": [int(x - w/2), int(y - h/2), int(x + w/2), int(y + h/2)],
+                        "confidence": float(result.boxes.conf[0]),
+                        "class": int(result.boxes.cls[0]),
+                        "track_id": track_id,
+                        "track_history": track
                     }
                     boxes.append(box_dict)
         except Exception as e:

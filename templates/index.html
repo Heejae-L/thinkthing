@@ -118,6 +118,23 @@
                 context.strokeStyle = 'red';
                 context.lineWidth = 2;
                 context.stroke();
+
+                // Draw tracking ID
+                context.fillStyle = 'blue';
+                context.font = '16px Arial';
+                context.fillText(`ID: ${box.track_id}`, box.coordinates[0], box.coordinates[1] - 10);
+
+                // Draw tracking lines
+                if (box.track_history && box.track_history.length > 1) {
+                    context.beginPath();
+                    context.moveTo(box.track_history[0][0], box.track_history[0][1]);
+                    for (let i = 1; i < box.track_history.length; i++) {
+                        context.lineTo(box.track_history[i][0], box.track_history[i][1]);
+                    }
+                    context.strokeStyle = 'blue';
+                    context.lineWidth = 2;
+                    context.stroke();
+                }
             });
         }
 
