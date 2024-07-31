@@ -29,6 +29,11 @@
     <canvas id="canvas" width="1280px" height="720px"></canvas>
     <p id="status"></p>
     <div id="distance"></div>
+    <div>
+        <label for="track-id">Track ID:</label>
+        <input type="number" id="track-id" min="1" max="50">
+        <button onclick="assignNumber()">Assign Number</button>
+    </div>
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -51,7 +56,8 @@
         hands.onResults(onResults);
 
         let handLandmarks = [];
-        let audio = new Audio('/Users/LeeHeejae/projects/thinkthing/sound_files/25.wav');
+        let trackIdToNumber = {};  // 트랙 ID에 할당된 숫자
+        let audio = new Audio();
 
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
@@ -164,13 +170,28 @@
                         let boxCenterY = (box.coordinates[1] + box.coordinates[3]) / 2;
                         let distance = Math.sqrt(Math.pow(handX - boxCenterX, 2) + Math.pow(handY - boxCenterY, 2));
                         if (distance <= 200) {
-                            audio.play();
+                            const assignedNumber = trackIdToNumber[box.track_id];
+                            if (assignedNumber) {
+                                audio.src = `../sound_files/${assignedNumber}.wav`;
+                                audio.play();
+                            }
                         }
                         distanceInfo += `Distance to object ${box.class}: ${Math.round(distance)}px<br>`;
                     });
                 });
             });
             distanceDisplay.innerHTML = distanceInfo;
+        }
+
+        function assignNumber() {
+            const trackId = parseInt(document.getElementById("track-id").value);
+            const assignedNumber = parseInt(prompt("Enter a number between 25 and 37 for the sound ID:"));
+            if (assignedNumber >= 25 && assignedNumber <= 37) {
+                trackIdToNumber[trackId] = assignedNumber;
+                alert(`Sound number ${assignedNumber} to track ID ${trackId}`);
+            } else {
+                alert("Please enter a number between 25 and 37.");
+            }
         }
     </script>
 </body>
