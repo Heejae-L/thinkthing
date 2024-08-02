@@ -5,7 +5,7 @@
     <title>YOLO and MediaPipe Hands Detection</title>
     <style>
         #video, #canvas {
-            position: absolute;
+            position: absolute;  /* video, canvas위치 고정*/
             top: 100px;  /* 제목을 가리지 않도록 조정 */
             left: 0;
         }
@@ -15,7 +15,7 @@
             left: 10px;
             background-color: white;
             padding: 5px;
-            border-radius: 5px;
+            border-radius: 5px; /* 모서리가 둥근 사각형 */
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -59,9 +59,10 @@
         let trackIdToNumber = {};  // 트랙 ID에 할당된 숫자
         let audio = new Audio();
 
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function(stream) {
+        /* 웹캠에서 비디오 스크림 가져오기 */
+        if (navigator.mediaDevices.getUserMedia) {  /* 웹캠을 지원하는 디바이스인지 확인*/
+            navigator.mediaDevices.getUserMedia({ video: true }) /* 웹캠을 요청*/
+                .then(function(stream) { /*stream : 웹캠에서 받아온 비디오 스트림 */
                     video.srcObject = stream;
                     streamVideoToServer();
                 })
@@ -70,15 +71,18 @@
                 });
         }
 
-        function streamVideoToServer() {
-            video.addEventListener('play', () => {
+
+        /* 웹캠 비디오 스트림이 유요한 데이터를 가지고 있으면 서버로 전송 */
+        /* mediapipe를 사용해서 hands의 위치를 탐지하여 서버로 전송 */
+        function streamVideoToServer() {  /* 비디오 스트림을 서버로 전송 */
+            video.addEventListener('play', () => { 
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
     
                 setInterval(() => {
-                    if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                        const imageData = canvas.toDataURL('image/jpeg');
+                    if (video.readyState === video.HAVE_ENOUGH_DATA) { // 비디오에 충분한 데이터가 있을 때만 서버로 전송함 
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);//캔버스에 현재 프레임을 캡쳐함 */
+                        const imageData = canvas.toDataURL('image/jpeg'); /* 이미지 형식을 url로 변경*/
                         if (imageData.length > 23) {
                             ws.send(imageData);
                             hands.send({image: video});
@@ -90,10 +94,11 @@
             });
         }
     
-        ws.onmessage = function(event) {
+        /* webSocket을 통해 서버로부터 메시지를 수신하고 처리 */
+        ws.onmessage = function(event) {// webSocket을 통해 서버로부터 메시지를 수신하고 처리 */
             let data;
             try {
-                data = JSON.parse(event.data);
+                data = JSON.parse(event.data);  //json 형태로 파싱
                 console.log("Received data:", data);  // 수신된 데이터 출력
             } catch (e) {
                 console.error("Received non-JSON message:", event.data);
@@ -107,17 +112,23 @@
             }
 
             if (Array.isArray(data)) {  // 좌표 데이터가 배열 형태로 제공된 경우
-                drawBoxes(data);
-                calculateAndDisplayDistances(data);
+                const filteredData = data.filter(box => box.class !== 0);  // person 클래스 제외
+                drawBoxes(filteredData);
+                calculateAndDisplayDistances(filteredData); //손과 객체간의 거리 계산 
             } else {
                 status.textContent = "Unexpected message format";
             }
         };
 
-        function drawBoxes(boxes) {
+         // 인지한 객체 바운딩 박스 그리기 
+         function drawBoxes(boxes) {
             context.clearRect(0, 0, canvas.width, canvas.height);  // 이전 프레임의 그림 삭제
             context.drawImage(video, 0, 0, canvas.width, canvas.height);  // 현재 비디오 프레임 그리기
             boxes.forEach(box => {
+                if (box.class ==0){
+                    return 
+                }
+
                 console.log("Drawing box:", box);  // 그릴 박스 정보 출력
                 context.beginPath();
                 context.rect(box.coordinates[0], box.coordinates[1], box.coordinates[2] - box.coordinates[0], box.coordinates[3] - box.coordinates[1]);
@@ -144,14 +155,15 @@
             });
         }
 
-        function onResults(results) {
+        // 인식한 손 객체를 비디오 상에 출력함 
+        function onResults(results) { //result : 인식한 손 객체 
             handLandmarks = [];
             context.save();
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+            context.clearRect(0, 0, canvas.width, canvas.height);   // 이전 프레임의 그림 삭제
+            context.drawImage(results.image, 0, 0, canvas.width, canvas.height); // 현재 비디오 프레임 그리기
             if (results.multiHandLandmarks) {
-                for (const landmarks of results.multiHandLandmarks) {
-                    handLandmarks.push(landmarks);
+                for (const landmarks of results.multiHandLandmarks) { 
+                    handLandmarks.push(landmarks); // 각 손의 랜드마크를 handLandmarks 배열에 추가 
                     drawConnectors(context, landmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 5});
                     drawLandmarks(context, landmarks, {color: '#FF0000', lineWidth: 2});
                 }
@@ -162,6 +174,7 @@
         function calculateAndDisplayDistances(boxes) {
             let distanceInfo = "";
             handLandmarks.forEach(hand => {
+                
                 hand.forEach(lm => {
                     let handX = lm.x * canvas.width;
                     let handY = lm.y * canvas.height;

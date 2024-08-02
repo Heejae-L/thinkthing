@@ -4,10 +4,12 @@ import numpy as np
 import json
 from collections import defaultdict
 from ultralytics import YOLO
+# from deep_sort_realtime.deepsort_tracker import DeepSort
+# import tensorflow as tf
 
 class ModelHandler:
     def __init__(self):
-        self.model = YOLO("/Users/LeeHeejae/projects/thinkthing/best.pt")  # 모델 경로를 변경
+        self.model = YOLO("path/to/your/yolov10n.pt")  # 모델 경로를 변경
         self.model.conf = 0.8  # Confidence threshold 설정
         self.track_history = defaultdict(lambda: [])
 
@@ -30,11 +32,12 @@ class ModelHandler:
 
         if not results or len(results) == 0 or not results[0].boxes:
             return json.dumps({"error": "No detections"}), "No detections"
-
+        
         boxes = []
         try:
             for result in results:
-                for box, track_id in zip(result.boxes.xywh.cpu(), result.boxes.id.int().cpu().tolist()):
+                for box, cls_id, track_id in zip(result.boxes.xywh.cpu(), result.boxes.cls.int().cpu().tolist(), result.boxes.id.int().cpu().tolist()):
+                        
                     x, y, w, h = box
                     track = self.track_history[track_id]
                     track.append((float(x), float(y)))  # x, y center point
@@ -44,7 +47,7 @@ class ModelHandler:
                     box_dict = {
                         "coordinates": [int(x - w/2), int(y - h/2), int(x + w/2), int(y + h/2)],
                         "confidence": float(result.boxes.conf[0]),
-                        "class": int(result.boxes.cls[0]),
+                        "class": cls_id,
                         "track_id": track_id,
                         "track_history": track
                     }
