@@ -5,19 +5,20 @@
     <title>YOLO and MediaPipe Hands Detection</title>
     <style>
         #video, #canvas {
-            position: absolute;  /* video, canvas위치 고정*/
-            top: 100px;  /* 제목을 가리지 않도록 조정 */
-            left: 0;
+            position: absolute;
+            top: 100px;
+            left: 10px;
         }
         #distance {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
+            top: 100px; /* 카메라 화면의 오른쪽 상단에 위치 */
+            right: 10px; /* 오른쪽에서 10px 떨어진 위치 */
             background-color: white;
             padding: 5px;
-            border-radius: 5px; /* 모서리가 둥근 사각형 */
+            border-radius: 5px;
         }
     </style>
+    
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
@@ -32,6 +33,23 @@
     <div>
         <label for="track-id">Track ID:</label>
         <input type="number" id="track-id" min="1" max="50">
+        <label for="sound-id">Sound Note:</label>
+        <select id="sound-id">
+            <option value="25">Do</option>
+            <option value="26">Do#</option>
+            <option value="27">Re</option>
+            <option value="28">Re#</option>
+            <option value="29">Mi</option>
+            <option value="30">Fa</option>
+            <option value="31">Fa#</option>
+            <option value="32">Sol</option>
+            <option value="33">Sol#</option>
+            <option value="34">La</option>
+            <option value="35">La#</option>
+            <option value="36">Si</option>
+            <option value="37">High Do</option>
+            <!-- Add more options if needed -->
+        </select>
         <button onclick="assignNumber()">Assign Number</button>
     </div>
     <script>
@@ -198,13 +216,9 @@
 
         function assignNumber() {
             const trackId = parseInt(document.getElementById("track-id").value);
-            const assignedNumber = parseInt(prompt("Enter a number between 25 and 37 for the sound ID:"));
-            if (assignedNumber >= 25 && assignedNumber <= 37) {
-                trackIdToNumber[trackId] = assignedNumber;
-                alert(`Sound number ${assignedNumber} to track ID ${trackId}`);
-            } else {
-                alert("Please enter a number between 25 and 37.");
-            }
+            const assignedNumber = parseInt(document.getElementById("sound-id").value);
+            trackIdToNumber[trackId] = assignedNumber;
+            alert(`Sound note assigned to track ID ${trackId}`);
         }
     </script>
 </body>

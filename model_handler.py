@@ -9,7 +9,7 @@ from ultralytics import YOLO
 
 class ModelHandler:
     def __init__(self):
-        self.model = YOLO("path/to/your/yolov10n.pt")  # 모델 경로를 변경
+        self.model = YOLO("yolov10n.pt")  # 모델 경로를 변경
         self.model.conf = 0.8  # Confidence threshold 설정
         self.track_history = defaultdict(lambda: [])
 
