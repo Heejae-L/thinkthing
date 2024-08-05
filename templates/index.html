@@ -189,6 +189,8 @@
             context.restore();
         }
 
+        let lastPlayed = {};  // 각 트랙 ID의 마지막 재생 시간을 저장할 객체
+
         function calculateAndDisplayDistances(boxes) {
             let distanceInfo = "";
             handLandmarks.forEach(hand => {
@@ -201,10 +203,13 @@
                         let boxCenterY = (box.coordinates[1] + box.coordinates[3]) / 2;
                         let distance = Math.sqrt(Math.pow(handX - boxCenterX, 2) + Math.pow(handY - boxCenterY, 2));
                         if (distance <= 200) {
-                            const assignedNumber = trackIdToNumber[box.track_id];
-                            if (assignedNumber) {
+                            const now = Date.now();
+                            const trackId = box.track_id;
+                            const assignedNumber = trackIdToNumber[trackId];
+                            if (assignedNumber && (!lastPlayed[trackId] || now - lastPlayed[trackId] > 1000)) { // 1초 이상 지났는지 확인
                                 audio.src = `../sound_files/${assignedNumber}.wav`;
                                 audio.play();
+                                lastPlayed[trackId] = now; // 마지막 재생 시간 업데이트
                             }
                         }
                         distanceInfo += `Distance to object ${box.class}: ${Math.round(distance)}px<br>`;
@@ -213,6 +218,7 @@
             });
             distanceDisplay.innerHTML = distanceInfo;
         }
+
 
         function assignNumber() {
             const trackId = parseInt(document.getElementById("track-id").value);
