@@ -1,6 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from model_handler import ModelHandler
 import json
+import uvicorn
 
 app = FastAPI()
 model_handler = ModelHandler()
@@ -29,3 +30,6 @@ async def websocket_endpoint(websocket: WebSocket):
     finally:
         await websocket.close()
         print("WebSocket connection closed")
+        
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
