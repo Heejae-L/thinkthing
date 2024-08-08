@@ -154,7 +154,7 @@ function calculateAndDisplayDistances(boxes) {
                     if (assignedNumber) {
                         if (!lastPlayed[trackId] || now - lastPlayed[trackId] > 1000) { // 1초 이상 지났는지 확인
                             if (playingTrackId !== trackId) {  // 현재 재생 중인 트랙 ID가 다른 경우
-                                audio.src = `new_sound_files/stretched_audio_${assignedNumber}.wav`;
+                                audio.src = `/Users/LeeHeejae/projects/thinkthing/new_sound_files/stretched_audio_${assignedNumber}.wav`;
                                 audio.play();
                                 playingTrackId = trackId;
                                 lastPlayed[trackId] = now; // 마지막 재생 시간 업데이트

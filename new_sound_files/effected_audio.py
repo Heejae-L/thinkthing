@@ -4,8 +4,8 @@ import numpy as np
 import os
 # 음정 올리기 
 # 대상 파일 리스트
-input_dir = '/Users/two_jyy/project_openSW/thinkthing/sound_files'
-output_dir = '/Users/two_jyy/project_openSW/thinkthing/new_sound_files'
+input_dir = '../sound_files'
+output_dir = '../new_sound_files'
 start_index = 26
 end_index = 37
 
