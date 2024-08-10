@@ -1,33 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
 <head>
     <meta charset="utf-8">
-    <title>YOLO and MediaPipe Hands Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLO and MediaPipe Hands Detection MusicSheet</title>
     <style>
-        #video, #canvas {
+
+        #music-canvas {
             position: absolute;
-            top: 100px;
-            left: 10px;
+            top: 100px;  /* 페이지 상단에 위치 */
+            width: 100%;
+            background: white;
         }
+        
+        #video, #canvas, #distance, #osmdContainer {
+            position: relative;
+            display: inline-block;
+            margin-top: 20px;  /* music-canvas 아래에 위치하도록 간격 설정 */
+            margin-right: 20px;  /* 요소 간 간격 설정 */
+            vertical-align: top;  /* 요소를 위쪽으로 정렬 */
+        }
+        
+        #video, #canvas {
+            z-index: 1; /* video와 canvas가 같은 줄에 나란히 위치 */
+        }
+        
         #distance {
-            position: absolute;
-            top: 100px; /* 카메라 화면의 오른쪽 상단에 위치 */
-            right: 10px; /* 오른쪽에서 10px 떨어진 위치 */
             background-color: white;
             padding: 5px;
             border-radius: 5px;
         }
+        
+        #osmdContainer {
+            height: 400px;
+            background-color: white;
+        }
+        
+       
     </style>
+
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="/static/opensheetmusicdisplay.min.js"></script>
 </head>
 <body>
-    <h1>YOLO and MediaPipe Hands Detection with Webcam</h1>
+    <h1>YOLO and MediaPipe Hands Detection with Webcam, musicSheet</h1>
     <video id="video" playsinline autoplay></video>
     <canvas id="canvas" width="1280px" height="720px"></canvas>
     <p id="status"></p>
+
+    <div id="osmdContainer"></div>
+
+    <!-- 사용된 음계 및 지속 시간이 여기에 추가됩니다 -->
+    <!--NOTES-->
+
+    <div id = "music-canvas"></div>
+
     <div id="distance"></div>
     <div>
         <label for="track-id">Track ID:</label>
@@ -51,6 +81,21 @@
         </select>
         <button onclick="assignNumber()">Assign Number</button>
     </div>
-    <script src="/Users/two_jyy/project_openSW/thinkthing/script.js"></script>
+
+    <script>
+        window.onload = function() {
+            const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-canvas");
+
+            fetch('/static/twinkle_twinkle.xml')
+                .then(response => response.text())
+                .then(data => {
+                    osmd.load(data).then(() => osmd.render());
+                })
+                .catch(error => console.error('Error loading the MusicXML:', error));
+        };
+    </script>
+
+    
 </body>
 </html>
+
