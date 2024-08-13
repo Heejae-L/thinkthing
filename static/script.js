@@ -238,8 +238,6 @@ function calculateAndDisplayDistances(boxes) {
         audio.currentTime = 0;
         playingTrackId = null;
     }
-    
-    distanceDisplay.innerHTML = distanceInfo;
 }
     
 function playAndRecord(trackId, assignedNumber, startTime) {
@@ -265,15 +263,15 @@ function calculateAccuracyAndScore(recordedNotes, notesInfo) {
     let totalWeight = 0;
     let totalScore = 0;
 
-    console.error("Recorded Notes:", recordedNotes);
-    console.error("Sheet Notes: ", notesInfo);
+    console.log("Recorded Notes:", recordedNotes);
+    console.log("Sheet Notes: ", notesInfo);
 
     for (let i = 0; i < recordedNotes.length; i++) {
         const recordedNote = recordedNotes[i]; // 연주한 노트
         const sheetNote = notesInfo[i]; // 악보 노트
 
-        console.error(`Comparing Recorded Note ${i}:`, recordedNote);
-        console.error(`With Sheet Note ${i}:`, sheetNote);
+        console.log(`Comparing Recorded Note ${i}:`, recordedNote);
+        console.log(`With Sheet Note ${i}:`, sheetNote);
 
         // 음계 정확도 계산
         const recordedPitch = recordedNote.note;
