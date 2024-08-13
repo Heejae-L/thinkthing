@@ -29,6 +29,13 @@
             padding: 5px;
             border-radius: 5px;
         }
+
+        #trackIdDisplay {
+            position: absolute;
+            top: 900px;
+            right: 10px;
+            background-color: white;
+        }
     </style>
     
 
@@ -43,7 +50,7 @@
             var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-canvas",{
                 drawPartNames : false
             });
-            osmd.load("../static/adagio_in_g_minor.xml").then(() => osmd.render());
+            osmd.load("../static/twinkle_twinkle.xml").then(() => osmd.render());
         });
     </script>
 
@@ -82,6 +89,8 @@
         <button id="finishRecording">Finish Recording</button>
         <button id="scoreCalculating">Check your score</button>
     </div>
+    <div id = "trackIdDisplay"></div>
+
     <script src="../static/script.js"></script>
 </body>
 </html>

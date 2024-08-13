@@ -22,7 +22,7 @@ app.add_middleware(
 current_dir = os.path.dirname(os.path.abspath(__file__))
 static_dir = os.path.join(current_dir, "static")
 templates_dir = os.path.join(current_dir, "templates")
-musicxml_path = os.path.join(static_dir, "adagio_in_g_minor.xml")
+musicxml_path = os.path.join(static_dir, "twinkle_twinkle.xml")
 
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
