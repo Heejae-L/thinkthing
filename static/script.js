@@ -91,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             const notes = data.getElementsByTagName("note");
             let notesInfo = [];
-            console.log("start incoding");
             for (let i = 0; i < notes.length; i++) {
                 let pitch = notes[i].getElementsByTagName("pitch")[0];
                 let duration = notes[i].getElementsByTagName("duration")[0];
@@ -213,7 +212,7 @@ function calculateAndDisplayDistances(boxes) {
 }
     
 function playAndRecord(trackId, assignedNumber, startTime) {
-    audio.src = `static/new_sound_files/stretched_audio_${assignedNumber}.wav`;
+    audio.src = `static/new_sound_files/${assignedNumber}.wav`;
     audio.play();
     playingTrackId = trackId;
     lastPlayed[trackId] = startTime;
@@ -223,7 +222,7 @@ function assignNumber() {
     const trackId = parseInt(document.getElementById("track-id").value);
     const assignedNumber = document.getElementById("sound-id").value;
     trackIdToNumber[trackId] = assignedNumber;
-    alert(`Sound note ${assignNumber} assigned to track ID ${trackId}`);
+    alert(`Sound note ${assignedNumber} assigned to track ID ${trackId}`);
 }
 
 
