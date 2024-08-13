@@ -85,13 +85,13 @@ ws.onmessage = function(event) {
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    fetch('../static/twinkle_twinkle.xml')
+    fetch('/static/adagio_in_g_minor.xml')
         .then(response => response.text())
         .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
         .then(data => {
             const notes = data.getElementsByTagName("note");
             let notesInfo = [];
-
+            console.log("start incoding");
             for (let i = 0; i < notes.length; i++) {
                 let pitch = notes[i].getElementsByTagName("pitch")[0];
                 let duration = notes[i].getElementsByTagName("duration")[0];
@@ -221,9 +221,9 @@ function playAndRecord(trackId, assignedNumber, startTime) {
 
 function assignNumber() {
     const trackId = parseInt(document.getElementById("track-id").value);
-    const assignedNumber = parseInt(document.getElementById("sound-id").value);
+    const assignedNumber = document.getElementById("sound-id").value;
     trackIdToNumber[trackId] = assignedNumber;
-    alert(`Sound note assigned to track ID ${trackId}`);
+    alert(`Sound note ${assignNumber} assigned to track ID ${trackId}`);
 }
 
 

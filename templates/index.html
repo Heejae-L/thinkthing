@@ -43,7 +43,7 @@
             var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("music-canvas",{
                 drawPartNames : false
             });
-            osmd.load("../static/twinkle_twinkle.xml").then(() => osmd.render());
+            osmd.load("../static/adagio_in_g_minor.xml").then(() => osmd.render());
         });
     </script>
 
@@ -60,19 +60,19 @@
         <input type="number" id="track-id" min="1" max="50">
         <label for="sound-id">Sound Note:</label>
         <select id="sound-id">
-            <option value="25">Do</option>
-            <option value="26">Do#</option>
-            <option value="27">Re</option>
-            <option value="28">Re#</option>
-            <option value="29">Mi</option>
-            <option value="30">Fa</option>
-            <option value="31">Fa#</option>
-            <option value="32">Sol</option>
-            <option value="33">Sol#</option>
-            <option value="34">La</option>
-            <option value="35">La#</option>
-            <option value="36">Si</option>
-            <option value="37">High Do</option>
+            <option value="C4">Do</option>
+            <option value="C#4">Do#</option>
+            <option value="D4">Re</option>
+            <option value="D#4">Re#</option>
+            <option value="E4">Mi</option>
+            <option value="F4">Fa</option>
+            <option value="F#4">Fa#</option>
+            <option value="G4">Sol</option>
+            <option value="G#4">Sol#</option>
+            <option value="A4">La</option>
+            <option value="A#4">La#</option>
+            <option value="B4">Si</option>
+            <option value="C5">High Do</option>
             <!-- Add more options if needed -->
         </select>
         <button onclick="assignNumber()">Assign Number</button>
@@ -80,6 +80,7 @@
     <div>
         <button id="startRecording">Start Recording</button>
         <button id="finishRecording">Finish Recording</button>
+        <button id="scoreCalculating">Check your score</button>
     </div>
     <script src="../static/script.js"></script>
 </body>
