@@ -84,8 +84,8 @@ ws.onmessage = function(event) {
 };
 
 document.addEventListener("DOMContentLoaded", function() {
-
-    fetch('/static/adagio_in_g_minor.xml')
+    const timestamp = new Date().getTime(); // 현재 시간을 가져와서 쿼리 파라미터로 사용
+    fetch(`/static/twinkle_twinkle.xml?timestamp=${timestamp}`)
         .then(response => response.text())
         .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
         .then(data => {
@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error("Error loading XML file:", error));
 });
+
 
 function drawBoxes(boxes) {
     context.clearRect(0, 0, canvas.width, canvas.height);
