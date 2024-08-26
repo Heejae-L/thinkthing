@@ -131,8 +131,8 @@ localhost:8000
 
 ### 프론트엔드
 
-![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=HTML5&logoColor=black)
-![javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=black)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=black)
+![javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black)
 
 ### 백엔드
 
