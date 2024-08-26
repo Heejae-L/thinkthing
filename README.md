@@ -1,8 +1,7 @@
 <h1 align="center">
   <br>
-    # thinkthing
-    2024 공개sw개발자대회
   <img src="" alt="thinkthing" width="300">
+  ## 2024 공개sw 개발자대회
 </h1>
 
 <h4 align="center">
@@ -99,13 +98,18 @@ Easy instrumental performance with yolov10
 
 ### 1. 서버
 
-  1. 필요한 패키지 설치
+  1. clone
+  ```bash
+  git clone https://github.com/Heejae-L/thinkthing.git
+  ```
+
+  2. 필요한 패키지 설치
 
   ```bash
   pip install -r requirements.txt
   ```
 
-  2. 서버 시작
+  3. 서버 시작
 
   ```bash
   uvicorn main:app --reload --host 0.0.0.0 --port 8000
@@ -128,8 +132,8 @@ localhost:8000
 
 ### 프론트엔드
 
-<img src="https://img.shields.io/badge/HTML-E34F26?style=flat&logo=HTML5&logoColor=black"/>
-
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=HTML5&logoColor=black)
+![javascript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=black)
 
 ### 백엔드
 
