@@ -22,7 +22,7 @@ Easy instrumental performance with yolov10
   <a href="#사용-방법">사용 방법</a> •
   <a href="#기술-스택">기술 스택</a> •
   <a href="#참고-자료">참고 자료</a> •
-  <a href="#출처-알림">출처 알림</a>
+  <a href="#출처">출처 알림</a>
 </p>
 
 <div align="center">
@@ -156,5 +156,5 @@ localhost:8000
 ## 참고 자료
 
 
-## 출처 알림
+## 출처
 
