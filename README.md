@@ -1,7 +1,7 @@
 <h1 align="center">
   <br>
   <img src="" alt="thinkthing" width="300">
-  ## 2024 공개sw 개발자대회
+  <h4> 2024 공개sw 개발자대회</h4>
 </h1>
 
 <h4 align="center">
@@ -21,7 +21,6 @@ Easy instrumental performance with yolov10
   <a href="#프로젝트-구조">프로젝트 구조</a> •
   <a href="#사용-방법">사용 방법</a> •
   <a href="#기술-스택">기술 스택</a> •
-  <a href="#기여-방법">기여 방법</a> •
   <a href="#참고-자료">참고 자료</a> •
   <a href="#출처-알림">출처 알림</a>
 </p>
@@ -153,13 +152,6 @@ localhost:8000
 
 ![GitHub](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-FFFFFF.svg?style=for-the-badge&logo=notion&logoColor=black)
-
-## 기여 방법
-
-### 프로젝트 지향점
-
-1. **음악 교육 분야에서의 컴퓨터 비전 활용**: 
-2. **음악 교육 장벽 완화**:
 
 ## 참고 자료
 
