@@ -2,7 +2,6 @@ const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 const status = document.getElementById('status');
-const distanceDisplay = document.getElementById('distance');
 const trackIdDisplay = document.getElementById('trackIdDisplay')
 const ws = new WebSocket('ws://localhost:8000/ws');
 
@@ -208,7 +207,7 @@ function calculateAndDisplayDistances(boxes) {
                 let boxCenterX = (box.coordinates[0] + box.coordinates[2]) / 2;
                 let boxCenterY = (box.coordinates[1] + box.coordinates[3]) / 2;
                 let distance = Math.sqrt(Math.pow(handX - boxCenterX, 2) + Math.pow(handY - boxCenterY, 2));
-                if (distance <= 200) {
+                if (distance <= 50) {
                     const now = Date.now();
                     const trackId = box.track_id;
                     const assignedNumber = trackIdToNumber[trackId];
@@ -221,7 +220,7 @@ function calculateAndDisplayDistances(boxes) {
                         isHandCloseToBox = true;
                     }
                 }
-                distanceInfo += `Distance to object ${box.class}: ${Math.round(distance)}px<br>`;
+                //distanceInfo += `Distance to object ${box.class}: ${Math.round(distance)}px<br>`;
             });
         });
     });
@@ -238,8 +237,6 @@ function calculateAndDisplayDistances(boxes) {
         audio.currentTime = 0;
         playingTrackId = null;
     }
-    
-    distanceDisplay.innerHTML = distanceInfo;
 }
     
 function playAndRecord(trackId, assignedNumber, startTime) {
@@ -265,15 +262,15 @@ function calculateAccuracyAndScore(recordedNotes, notesInfo) {
     let totalWeight = 0;
     let totalScore = 0;
 
-    console.error("Recorded Notes:", recordedNotes);
-    console.error("Sheet Notes: ", notesInfo);
+    console.log("Recorded Notes:", recordedNotes);
+    console.log("Sheet Notes: ", notesInfo);
 
     for (let i = 0; i < recordedNotes.length; i++) {
         const recordedNote = recordedNotes[i]; // 연주한 노트
         const sheetNote = notesInfo[i]; // 악보 노트
 
-        console.error(`Comparing Recorded Note ${i}:`, recordedNote);
-        console.error(`With Sheet Note ${i}:`, sheetNote);
+        console.log(`Comparing Recorded Note ${i}:`, recordedNote);
+        console.log(`With Sheet Note ${i}:`, sheetNote);
 
         // 음계 정확도 계산
         const recordedPitch = recordedNote.note;
