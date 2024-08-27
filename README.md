@@ -76,7 +76,7 @@ Easy instrumental performance with yolov10
 
 ### 1. 물체 악기 연주
 
-<img src="https://github.com/user-attachments/assets/997f12df-4579-4714-abfa-9cfa8a2601b2" alt="연주 화면" width="500">
+<img src="https://github.com/user-attachments/assets/0c9d82a8-972d-4480-a5b7-b2b72ca346ed" alt="연주 화면" width="500">
 
 
 - 인식 된 물체에 계이름을 할당
@@ -94,7 +94,7 @@ Easy instrumental performance with yolov10
 
 ### 2. 연주 기록 및 피드백
 
-<img width="1115" alt="scoreScreen" src="https://github.com/user-attachments/assets/f07d39a8-e597-4f43-9132-e9022f93646f">
+<img width="1115" alt="scoreScreen" src="https://github.com/user-attachments/assets/dc043de9-75ae-402c-9d81-d1d52a2db5e2>
 
 - 사용자의 연주를 기록하고 점수를 표시
   - 시작버튼을 누른 후 악보에 맞춰 연주하면 내부적으로 사용자의 연주(음계와 음의 길이)를 기록한다. 종료버튼으로 연주 기록을 중지할 수 있다. 사용자는 점수 확인버튼으로 자신이 악보와 얼마나 비슷하게 연주했는지 확인할 수 있다.
