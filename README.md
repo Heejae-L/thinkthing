@@ -1,6 +1,7 @@
 <h1 align="center">
   <br>
-  <img src="" alt="thinkthing" width="300">
+<img width="802" alt="thinkthingTitle" width="300" src="https://github.com/user-attachments/assets/187895b7-9451-40ee-9397-868d262ef192">
+
   <h4> 2024 공개sw 개발자대회</h4>
 </h1>
 
@@ -27,7 +28,7 @@ Easy instrumental performance with yolov10
 
 <div align="center">
 
-| [<img src="https://github.com/Heejae-L/thinkthing/assets/heejae-l.png" width="100px;"/><br /><sub><b>이희재</b></sub>](https://github.com/Heejae-L) | [<img src="" width="100px;"/><br /><sub><b>이재영</b></sub>](https://github.com/jaeyoung-leee)<br /> |
+| [<img src="https://github.com/user-attachments/assets/e872ea30-4dc5-4175-8071-76cc76aa1d01" width="100px;"/><br /><sub><b>이희재</b></sub>](https://github.com/Heejae-L) | [<img src="" width="100px;"/><br /><sub><b>이재영</b></sub>](https://github.com/jaeyoung-leee)<br /> |
 | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: |
 |                                                         백엔드,AI                                                        |                                                          프론트엔드, AI                                                          |
 
@@ -82,7 +83,9 @@ Easy instrumental performance with yolov10
 
 ### 1. 물체 악기 연주
 
-<img src="https://github.com/Heejae-L/thinkthing/assets/screen1.png" alt="연주 화면" width="500">
+<img src="https://github.com/user-attachments/assets/997f12df-4579-4714-abfa-9cfa8a2601b2" alt="연주 화면" width="500">
+
+<img width="934" alt="screen2" src="https://github.com/user-attachments/assets/2fe2aefd-e4b5-4c5b-bfa3-e56695c5584f">
 
 ### 2. 연주 피드백
 
@@ -91,7 +94,7 @@ Easy instrumental performance with yolov10
 
 ## 프로젝트 구조
 
-![image](https://github.com/Heejae-L/thinkthing/assets/structure.png)
+![structure](https://github.com/user-attachments/assets/9062bf1e-105d-4856-ab9c-042bbdc87da6)
 
 ## 사용 방법
 
