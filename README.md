@@ -169,8 +169,8 @@ localhost:8000
 
 ## 참고 자료
 ### 오픈소스 출처
-https://github.com/THU-MIG/yolov10
-https://makernambo.com/154
-https://github.com/opensheetmusicdisplay
+- https://github.com/THU-MIG/yolov10
+- https://makernambo.com/154
+- https://github.com/opensheetmusicdisplay
 
 
