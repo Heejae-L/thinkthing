@@ -24,7 +24,7 @@ Easy instrumental performance with yolov10
 
 <div align="center">
 
-| [<img src="https://github.com/user-attachments/assets/e872ea30-4dc5-4175-8071-76cc76aa1d01" width="100px;"/><br /><sub><b>이희재</b></sub>](https://github.com/Heejae-L) | [<img src="" width="100px;"/><br /><sub><b>이재영</b></sub>](https://github.com/jaeyoung-leee)<br /> |
+| [<img src="https://github.com/user-attachments/assets/e872ea30-4dc5-4175-8071-76cc76aa1d01" width="100px;"/><br /><sub><b>이희재</b></sub>](https://github.com/Heejae-L) | [<img src="https://github.com/user-attachments/assets/6a587284-21ac-47a8-b083-30d82753db25" width="100px;"/><br /><sub><b>이재영</b></sub>](https://github.com/jaeyoung-leee)<br /> |
 | :------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: |
 |                                                         백엔드,AI                                                        |                                                          프론트엔드, AI                                                          |
 
