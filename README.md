@@ -1,6 +1,7 @@
 <h1 align="center">
   <br>
-  <img src="" alt="thinkthing" width="300">
+<img width="802" alt="thinkthingTitle" width="300" src="https://github.com/user-attachments/assets/187895b7-9451-40ee-9397-868d262ef192">
+
   <h4> 2024 공개sw 개발자대회</h4>
 </h1>
 
